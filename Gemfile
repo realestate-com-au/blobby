@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-# Runtime dependencies in rea-blob-storage.gemspec
+# Runtime dependencies in blobby.gemspec
 gemspec
 
 # Development/test dependencies below

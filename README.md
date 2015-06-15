@@ -37,5 +37,5 @@ This gem provides several "store" implementations:
 
 Other gems provide additional implementations:
 
-    # gem "rea-blob-storage-s3"
+    # gem "blobby-s3"
     Blobby::S3Store.new("mybucket")
