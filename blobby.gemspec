@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.authors       = ["Mike Williams"]
   gem.email         = ["mdub@dogbiscuit.org"]
   gem.summary       = "Various ways of storing BLOBs"
-  gem.homepage      = "https://github.com/realestate-com.au/blobby"
+  gem.homepage      = "https://github.com/realestate-com-au/blobby"
 
   gem.files         = `git ls-files`.split($OUTPUT_RECORD_SEPARATOR)
   gem.executables   = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }
