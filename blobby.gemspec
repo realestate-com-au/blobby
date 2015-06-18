@@ -4,6 +4,7 @@ $LOAD_PATH << File.expand_path("../lib", __FILE__)
 require "blobby/version"
 
 Gem::Specification.new do |gem|
+
   gem.authors       = ["Mike Williams"]
   gem.email         = ["mdub@dogbiscuit.org"]
   gem.summary       = "Various ways of storing BLOBs"
@@ -15,4 +16,5 @@ Gem::Specification.new do |gem|
   gem.name          = "blobby"
   gem.require_paths = ["lib"]
   gem.version       = Blobby::VERSION
+
 end
