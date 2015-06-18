@@ -1,5 +1,7 @@
 # Blobby
 
+[![Build Status](https://travis-ci.org/realestate.com.au/blobby.svg?branch=master)](https://travis-ci.org/realestate.com.au/blobby)
+
 This gem provides a standard interface for storing big chunks of data.
 
 ## Usage
