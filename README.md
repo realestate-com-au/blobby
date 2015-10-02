@@ -39,5 +39,4 @@ This gem provides several "store" implementations:
 
 Other gems provide additional implementations:
 
-    # gem "blobby-s3"
-    Blobby::S3Store.new("mybucket")
+  * ["blobby-s3"](https://github.com/realestate-com-au/blobby-s3)
