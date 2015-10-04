@@ -98,7 +98,7 @@ shared_examples_for Blobby::Store do
 
       context "for UTF-8 content" do
 
-        let(:content) { "SN☃WMAN" }
+        let(:content) { "SN☃WMAN".freeze }
 
         before do
           stored_object.write(content)
@@ -107,7 +107,9 @@ shared_examples_for Blobby::Store do
         describe "#read" do
 
           it "returns binary data" do
-            expect(stored_object.read.encoding.name).to eq("ASCII-8BIT")
+            stored_content = stored_object.read
+            expect(stored_content.encoding.name).to eq("ASCII-8BIT")
+            expect(stored_content.force_encoding("UTF-8")).to eq(content)
           end
 
         end
