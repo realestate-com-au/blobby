@@ -7,13 +7,15 @@ module Blobby
   #
   class HttpStore
 
-    def initialize(base_url, options = {})
-      @base_url = base_url
-      @base_url += "/" unless @base_url.end_with?("/")
+    def initialize(base_uri, options = {})
+      @base_uri = URI(base_uri)
+      unless (uri_str = @base_uri.to_s).end_with?("/")
+        @base_uri = URI(uri_str + "/")
+      end
       @max_retries = options.fetch(:max_retries, 2)
     end
 
-    attr_reader :base_url
+    attr_reader :base_uri
     attr_reader :max_retries
 
     def available?
@@ -27,10 +29,6 @@ module Blobby
     def [](key)
       KeyConstraint.must_allow!(key)
       StoredObject.new(self, key)
-    end
-
-    def base_uri
-      URI(base_url)
     end
 
     def with_http_connection

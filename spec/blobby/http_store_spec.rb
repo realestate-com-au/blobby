@@ -179,7 +179,7 @@ describe Blobby::HttpStore do
 
   end
 
-  context "when the base_url does not include a trailing slash" do
+  context "when the base_uri does not include a trailing slash" do
 
     subject do
       described_class.new("http://#{http_storage_host}/prefix")
@@ -191,7 +191,7 @@ describe Blobby::HttpStore do
 
   end
 
-  context "when the base_url does include a trailing slash" do
+  context "when the base_uri does include a trailing slash" do
 
     subject do
       described_class.new("http://#{http_storage_host}/prefix/")
@@ -201,6 +201,11 @@ describe Blobby::HttpStore do
       expect(subject.base_uri.to_s).to eq("http://#{http_storage_host}/prefix/")
     end
 
+  end
+
+  it "can be created with a URI" do
+    store = described_class.new(URI("http://#{http_storage_host}/prefix/"))
+    expect(store.base_uri.to_s).to eq("http://#{http_storage_host}/prefix/")
   end
 
 end

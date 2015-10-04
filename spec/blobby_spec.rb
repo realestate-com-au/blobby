@@ -24,6 +24,29 @@ describe Blobby do
 
     end
 
+    context "with an http:// URI" do
+
+      it "creates a HttpStore" do
+        store = Blobby.store("http://storage.com/data/")
+        expect(store).to be_a(Blobby::HttpStore)
+        expect(store.base_uri.host).to eq("storage.com")
+        expect(store.base_uri.path).to eq("/data/")
+      end
+
+    end
+
+    context "with an https:// URI" do
+
+      it "creates a HttpStore" do
+        store = Blobby.store("https://storage.com/data/")
+        expect(store).to be_a(Blobby::HttpStore)
+        expect(store.base_uri.scheme).to eq("https")
+        expect(store.base_uri.host).to eq("storage.com")
+        expect(store.base_uri.path).to eq("/data/")
+      end
+
+    end
+
     context "with 'mem:'" do
 
       it "creates an InMemoryStore" do
