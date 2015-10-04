@@ -100,7 +100,7 @@ describe Blobby::HttpStore do
       it "raises an exception" do
         expect do
           subject[key].read
-        end.to raise_error
+        end.to raise_error(Net::HTTPFatalError)
       end
 
     end
@@ -110,7 +110,7 @@ describe Blobby::HttpStore do
       it "raises an exception" do
         expect do
           subject[key].write("something")
-        end.to raise_error
+        end.to raise_error(Net::HTTPFatalError)
       end
 
     end
