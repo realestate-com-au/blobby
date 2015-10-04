@@ -1,17 +1,19 @@
 require "blobby/filesystem_store"
 require "blobby/in_memory_store"
 require "blobby/version"
+require "uri"
 
 module Blobby
 
-  def self.store(path)
-    case path
-    when %r(file://(/.*))
-      FilesystemStore.new($1)
-    when 'mem:'
-      InMemoryStore.new($1)
+  def self.store(uri)
+    uri = URI(uri)
+    case uri.scheme
+    when "file", nil
+      FilesystemStore.new(uri.path)
+    when "mem"
+      InMemoryStore.new
     else
-      FilesystemStore.new(path)
+      raise ArgumentError, "unknown store URI: #{uri}"
     end
   end
 
