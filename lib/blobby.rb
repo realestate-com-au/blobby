@@ -7,13 +7,14 @@ require "uri"
 module Blobby
 
   def self.store(uri)
+
     uri = URI(uri)
     case uri.scheme
     when "file", nil
       FilesystemStore.new(uri.path)
     when "http", "https"
       HttpStore.new(uri)
-    when "mem"
+    when "in-memory"
       InMemoryStore.new
     else
       raise ArgumentError, "unknown store URI: #{uri}"

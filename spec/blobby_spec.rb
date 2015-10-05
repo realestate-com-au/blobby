@@ -47,10 +47,10 @@ describe Blobby do
 
     end
 
-    context "with 'mem:'" do
+    context "with 'in-memory:/'" do
 
       it "creates an InMemoryStore" do
-        store = Blobby.store("mem:")
+        store = Blobby.store("in-memory:/")
         expect(store).to be_a(Blobby::InMemoryStore)
       end
 
