@@ -1,3 +1,5 @@
+require "spec_helper"
+
 require "ostruct"
 require "blobby/http_store"
 require "blobby/in_memory_store"
@@ -100,7 +102,7 @@ describe Blobby::HttpStore do
       it "raises an exception" do
         expect do
           subject[key].read
-        end.to raise_error(Net::HTTPFatalError)
+        end.to raise_error("hell")
       end
 
     end
@@ -110,7 +112,7 @@ describe Blobby::HttpStore do
       it "raises an exception" do
         expect do
           subject[key].write("something")
-        end.to raise_error(Net::HTTPFatalError)
+        end.to raise_error("hell")
       end
 
     end

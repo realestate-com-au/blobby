@@ -1,3 +1,5 @@
+require "spec_helper"
+
 require "blobby/filesystem_store"
 require "blobby/key_transforming_store"
 require "blobby/store_behaviour"

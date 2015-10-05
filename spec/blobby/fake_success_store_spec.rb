@@ -1,5 +1,7 @@
 # encoding: UTF-8
 
+require "spec_helper"
+
 require "blobby/fake_success_store"
 require "blobby/store_behaviour"
 

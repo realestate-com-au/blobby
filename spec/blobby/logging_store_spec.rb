@@ -1,7 +1,9 @@
-require "logger"
+require "spec_helper"
+
 require "blobby/in_memory_store"
 require "blobby/logging_store"
 require "blobby/store_behaviour"
+require "logger"
 require "stringio"
 
 describe Blobby::LoggingStore do

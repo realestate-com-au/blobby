@@ -1,3 +1,5 @@
+require "spec_helper"
+
 require "blobby/in_memory_store"
 require "blobby/store_behaviour"
 

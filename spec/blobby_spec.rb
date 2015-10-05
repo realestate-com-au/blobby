@@ -1,3 +1,5 @@
+require "spec_helper"
+
 require "blobby"
 
 describe Blobby do
