@@ -1,6 +1,7 @@
 Eval:
   Exclude:
     - "Rakefile"
+    - "**/version.rb"
 
 Metrics/AbcSize:
   Enabled: false
@@ -40,8 +41,14 @@ Style/FileName:
 Style/HashSyntax:
   EnforcedStyle: hash_rockets
 
+Style/SignalException:
+  EnforcedStyle: semantic
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
+
+Style/RegexpLiteral:
+  Enabled: false
 
 Style/WordArray:
   Enabled: false

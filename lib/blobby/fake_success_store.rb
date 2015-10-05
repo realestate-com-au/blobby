@@ -25,7 +25,7 @@ module Blobby
         image_path = Pathname(File.dirname(__FILE__)) + "placeholder.png"
         image_path.open("rb") do |io|
           if block_given?
-            while chunk = io.read(512)
+            while (chunk = io.read(512))
               yield chunk
             end
             nil

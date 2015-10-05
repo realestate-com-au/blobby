@@ -41,9 +41,7 @@ describe Blobby::HttpStore do
 
     def key
       params[:captures].first.tap do |key|
-        if key =~ /FAIL/ # simulate failure
-          fail "hell"
-        end
+        fail "hell" if key =~ /FAIL/ # simulate failure
       end
     end
 

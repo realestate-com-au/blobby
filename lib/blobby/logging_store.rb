@@ -15,9 +15,10 @@ module Blobby
     end
 
     def [](key)
-      StoredObject.new(store[key],
-                       :on_write => -> { logger.info(%(wrote to #{key.inspect} in #{store_name})) },
-                       :on_delete => -> { logger.info(%(deleted #{key.inspect} from #{store_name})) }
+      StoredObject.new(
+        store[key],
+        :on_write => -> { logger.info(%(wrote to #{key.inspect} in #{store_name})) },
+        :on_delete => -> { logger.info(%(deleted #{key.inspect} from #{store_name})) }
       )
     end
 

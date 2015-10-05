@@ -53,7 +53,7 @@ module Blobby
       def read
         @path.open("rb") do |io|
           if block_given?
-            while chunk = io.read(512)
+            while (chunk = io.read(512))
               yield chunk
             end
             nil
@@ -77,7 +77,8 @@ module Blobby
       end
 
       def delete
-        !!FileUtils.rm(@path)
+        FileUtils.rm(@path)
+        true
       rescue Errno::ENOENT
         false
       end
@@ -95,7 +96,7 @@ module Blobby
       RAND_MAX = ("F" * 10).to_i(16)
 
       def tmp_name
-        sprintf("tmp-%X", rand(RAND_MAX))
+        format("tmp-%X", rand(RAND_MAX))
       end
 
       def atomic_create(store_path)
@@ -106,7 +107,7 @@ module Blobby
         begin
           tmp = tmp_path.open(File::CREAT | File::EXCL | File::WRONLY, 0666)
           tmp.binmode
-        rescue Errno::ENOENT => e
+        rescue Errno::ENOENT
           FileUtils.mkdir_p(store_dir.to_s, :mode => apply_umask(0777))
           retry
         end
@@ -121,7 +122,7 @@ module Blobby
         first_try = true
         begin
           tmp_path.rename(store_path)
-        rescue Errno::ESTALE => e
+        rescue Errno::ESTALE
           raise unless first_try
           first_try = false
           now = Time.now

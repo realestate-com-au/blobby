@@ -94,10 +94,10 @@ module Blobby
       end
 
       def write(content)
-        content = if content.respond_to?(:read)
-          content.read
+        if content.respond_to?(:read)
+          content = content.read
         else
-          content.dup
+          content = content.dup
         end
         with_http_connection do |http, path|
           put = Net::HTTP::Put.new(path)

@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 require "blobby/filesystem_store"
 require "blobby/store_behaviour"
 require "tmpdir"
@@ -38,11 +36,15 @@ describe Blobby::FilesystemStore do
   describe "#write" do
 
     it "writes to the file-system" do
-      expect { subject[key].write(content) }.to change { expected_file_path.exist? }.from(false).to(true)
+      expect do
+        subject[key].write(content)
+      end.to change { expected_file_path.exist? }.from(false).to(true)
     end
 
     it "should have correct contents" do
-      expect { subject[key].write(content) }.to change { File.read(expected_file_path) rescue nil }.from(nil).to(content)
+      expect do
+        subject[key].write(content)
+      end.to change { File.read(expected_file_path) rescue nil }.from(nil).to(content)
     end
 
     it "retries if renaming throws an ESTALE" do

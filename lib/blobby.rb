@@ -4,6 +4,8 @@ require "blobby/in_memory_store"
 require "blobby/version"
 require "uri"
 
+# BLOB storage
+#
 module Blobby
 
   class << self
@@ -11,7 +13,7 @@ module Blobby
     def store(uri)
       uri = URI(uri)
       factory = store_factories[uri.scheme]
-      raise ArgumentError, "unknown store type: #{uri}" if factory.nil?
+      fail ArgumentError, "unknown store type: #{uri}" if factory.nil?
       factory.from_uri(uri)
     end
 

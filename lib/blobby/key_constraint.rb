@@ -8,8 +8,6 @@ module Blobby
   #
   module KeyConstraint
 
-    extend self
-
     BAD_PATTERNS = [
       %r{\A\Z}, # blank
       %r{\A/}, # leading slash
@@ -17,6 +15,8 @@ module Blobby
       %r{//+}, # multiple slashes
       %r{:} # colon
     ].freeze
+
+    module_function
 
     def allows?(key)
       BAD_PATTERNS.none? { |pattern| pattern =~ key } &&

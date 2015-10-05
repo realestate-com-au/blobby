@@ -6,7 +6,7 @@ module Blobby
   #
   class InMemoryStore
 
-    def self.from_uri(uri)
+    def self.from_uri(_uri)
       new
     end
 
@@ -58,7 +58,7 @@ module Blobby
       end
 
       def delete
-        !!@hash.delete(key)
+        !@hash.delete(key).nil?
       end
 
     end
