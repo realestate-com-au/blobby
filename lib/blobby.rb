@@ -7,7 +7,6 @@ require "uri"
 module Blobby
 
   def self.store(uri)
-
     uri = URI(uri)
     case uri.scheme
     when "file", nil

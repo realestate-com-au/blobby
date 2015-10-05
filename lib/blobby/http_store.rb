@@ -7,11 +7,10 @@ module Blobby
   #
   class HttpStore
 
-    def initialize(base_uri, options = {})
-      @base_uri = URI(base_uri)
-      unless (uri_str = @base_uri.to_s).end_with?("/")
-        @base_uri = URI(uri_str + "/")
-      end
+    def initialize(uri, options = {})
+      uri = URI(uri)
+      uri = URI("#{uri}/") unless uri.to_s.end_with?("/")
+      @base_uri = uri
       @max_retries = options.fetch(:max_retries, 2)
     end
 
