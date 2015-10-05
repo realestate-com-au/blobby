@@ -4,12 +4,18 @@ require "blobby/in_memory_store"
 require "blobby/version"
 require "uri"
 
-# BLOB storage
+# BLOB storage.
 #
 module Blobby
 
   class << self
 
+    # Instantiate a BLOB-store based on a storage-address URI.
+    # An appropriate store impementation will be selected, based on
+    # URI-scheme.
+    #
+    # @param uri [URI] storage address
+    #
     def store(uri)
       uri = URI(uri)
       factory = store_factories[uri.scheme]

@@ -27,6 +27,7 @@ module Blobby
       dir.directory? && dir.readable? && dir.writable?
     end
 
+    # (see AbstractStore#[])
     def [](key)
       KeyConstraint.must_allow!(key)
       relative_path = @sharding_strategy.call(key)
