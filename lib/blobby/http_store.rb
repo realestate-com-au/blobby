@@ -7,6 +7,10 @@ module Blobby
   #
   class HttpStore
 
+    def self.from_uri(uri)
+      new(uri)
+    end
+
     def initialize(uri, options = {})
       uri = URI(uri)
       uri = URI("#{uri}/") unless uri.to_s.end_with?("/")

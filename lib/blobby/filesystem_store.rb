@@ -10,6 +10,10 @@ module Blobby
   #
   class FilesystemStore
 
+    def self.from_uri(uri)
+      new(uri.path)
+    end
+
     def initialize(dir, options = {}, &sharding_strategy)
       @dir = Pathname(dir)
       @umask = options[:umask] || File.umask

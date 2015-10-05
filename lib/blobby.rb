@@ -6,18 +6,31 @@ require "uri"
 
 module Blobby
 
-  def self.store(uri)
-    uri = URI(uri)
-    case uri.scheme
-    when "file", nil
-      FilesystemStore.new(uri.path)
-    when "http", "https"
-      HttpStore.new(uri)
-    when "in-memory"
-      InMemoryStore.new
-    else
-      raise ArgumentError, "unknown store URI: #{uri}"
+  class << self
+
+    def store(uri)
+      uri = URI(uri)
+      factory = store_factories[uri.scheme]
+      raise ArgumentError, "unknown store type: #{uri}" if factory.nil?
+      factory.from_uri(uri)
     end
+
+    def register_store_factory(uri_scheme, factory)
+      store_factories[uri_scheme] = factory
+    end
+
+    private
+
+    def store_factories
+      @store_factories ||= {}
+    end
+
   end
+
+  register_store_factory nil, FilesystemStore
+  register_store_factory "file", FilesystemStore
+  register_store_factory "http", HttpStore
+  register_store_factory "https", HttpStore
+  register_store_factory "in-memory", InMemoryStore
 
 end

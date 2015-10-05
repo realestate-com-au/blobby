@@ -6,6 +6,10 @@ module Blobby
   #
   class InMemoryStore
 
+    def self.from_uri(uri)
+      new
+    end
+
     def initialize(hash = {})
       @hash = hash
     end
