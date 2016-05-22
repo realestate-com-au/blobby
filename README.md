@@ -40,3 +40,15 @@ This gem provides several "store" implementations:
 Other gems provide additional implementations:
 
   * ["blobby-s3"](https://github.com/realestate-com-au/blobby-s3)
+
+`Blobby.store` provides a convenient way to construct an appropriate
+implementation, given a URI (or psuedo-URI):
+
+    Blobby.store("file:///tmp")
+    # => #<Blobby::FilesystemStore ...>
+
+    Blobby.store("mem:")
+    # => #<Blobby::InMemoryStore ...>
+
+    Blobby.store("http://storage.com/mystuff/")
+    # => #<Blobby::HttpStore ...>

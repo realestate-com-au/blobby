@@ -40,5 +40,6 @@ module Blobby
   register_store_factory "http", HttpStore
   register_store_factory "https", HttpStore
   register_store_factory "in-memory", InMemoryStore
+  register_store_factory "mem", InMemoryStore
 
 end
