@@ -6,7 +6,7 @@ This gem provides a standard interface for storing big chunks of data.
 
 ## Usage
 
-It supports popular BLOBs operations such as reading:
+It supports popular BLOB operations such as reading:
 
     store["key"].read
 
