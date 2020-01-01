@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "blobby/key_constraint"
 
 module Blobby
@@ -47,11 +49,11 @@ module Blobby
       end
 
       def write(content)
-        if content.respond_to?(:read)
-          content = content.read
-        else
-          content = content.to_str.dup
-        end
+        content = if content.respond_to?(:read)
+                    content.read
+                  else
+                    content.to_str.dup
+                  end
         content = content.force_encoding("BINARY") if content.respond_to?(:force_encoding)
         @hash[key] = content
         nil

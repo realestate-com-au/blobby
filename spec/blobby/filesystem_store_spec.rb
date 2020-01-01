@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 require "blobby/filesystem_store"
@@ -17,7 +19,7 @@ describe Blobby::FilesystemStore do
   around(:each) do |example|
     original_umask = File.umask
     begin
-      File.umask(0077) # something stupid
+      File.umask(0o077) # something stupid
       example.run
     ensure
       File.umask(original_umask)
@@ -46,13 +48,20 @@ describe Blobby::FilesystemStore do
     it "should have correct contents" do
       expect do
         subject[key].write(content)
-      end.to change { File.read(expected_file_path) rescue nil }.from(nil).to(content)
+      end.to change {
+               begin
+                        File.read(expected_file_path)
+               rescue StandardError
+                 nil
+                      end
+             } .from(nil).to(content)
     end
 
     it "retries if renaming throws an ESTALE" do
       raise_stack = [Errno::ESTALE]
       expect_any_instance_of(Pathname).to receive(:rename).twice do |_args|
         fail(raise_stack.shift) unless raise_stack.empty?
+
         1
       end
       expect { subject[key].write(content) }.to_not raise_error
@@ -98,9 +107,9 @@ describe Blobby::FilesystemStore do
   context "when the directory isn't writable" do
 
     around do |example|
-      FileUtils.chmod(0500, @tmpdir)
+      FileUtils.chmod(0o500, @tmpdir)
       example.run
-      FileUtils.chmod(0700, @tmpdir)
+      FileUtils.chmod(0o700, @tmpdir)
     end
 
     it { is_expected.not_to be_available }
@@ -110,9 +119,9 @@ describe Blobby::FilesystemStore do
   context "when the directory isn't readable" do
 
     around do |example|
-      FileUtils.chmod(0300, @tmpdir)
+      FileUtils.chmod(0o300, @tmpdir)
       example.run
-      FileUtils.chmod(0700, @tmpdir)
+      FileUtils.chmod(0o700, @tmpdir)
     end
 
     it { is_expected.not_to be_available }
@@ -156,17 +165,17 @@ describe Blobby::FilesystemStore do
   end
 
   def mode_string_of(path)
-    format("0%o", path.stat.mode & 0777)
+    format("0%o", path.stat.mode & 0o777)
   end
 
   context "with a umask of 0027" do
 
     subject do
-      described_class.new(@tmpdir, :umask => 0027)
+      described_class.new(@tmpdir, :umask => 0o027)
     end
 
     it "has the specified umask" do
-      expect(subject.umask).to eq(0027)
+      expect(subject.umask).to eq(0o027)
     end
 
     describe "#write" do
@@ -189,7 +198,7 @@ describe Blobby::FilesystemStore do
 
   context "without an explicit umask" do
 
-    let(:system_umask) { 0024 }
+    let(:system_umask) { 0o024 }
 
     around(:each) do |example|
       original_umask = File.umask

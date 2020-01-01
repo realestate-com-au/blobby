@@ -1,4 +1,4 @@
-# encoding: UTF-8
+# frozen_string_literal: true
 
 require "spec_helper"
 
@@ -100,7 +100,7 @@ shared_examples_for Blobby::Store do
 
       context "for UTF-8 content" do
 
-        let(:content) { "SN☃WMAN".freeze }
+        let(:content) { "SN☃WMAN" }
 
         before do
           stored_object.write(content)

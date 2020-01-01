@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "blobby/key_constraint"
 require "net/http"
 
@@ -25,7 +27,7 @@ module Blobby
       with_http_connection do
         true
       end
-    rescue
+    rescue StandardError
       false
     end
 
@@ -42,6 +44,7 @@ module Blobby
         end
       rescue *retryable_exceptions => e
         raise e if remaining_retry_intervals.empty?
+
         sleep(remaining_retry_intervals.shift) && retry
       end
     end
@@ -78,9 +81,9 @@ module Blobby
         with_http_connection do |http, path|
           http.request_get(path) do |response|
             case response
-            when Net::HTTPNotFound then
+            when Net::HTTPNotFound
               return nil
-            when Net::HTTPSuccess then
+            when Net::HTTPSuccess
               if block_given?
                 response.read_body(&block)
                 return nil
@@ -94,11 +97,11 @@ module Blobby
       end
 
       def write(content)
-        if content.respond_to?(:read)
-          content = content.read
-        else
-          content = content.dup
-        end
+        content = if content.respond_to?(:read)
+                    content.read
+                  else
+                    content.dup
+                  end
         with_http_connection do |http, path|
           put = Net::HTTP::Put.new(path)
           put.body = content
@@ -115,9 +118,9 @@ module Blobby
           delete = Net::HTTP::Delete.new(path)
           response = http.request(delete)
           case response
-          when Net::HTTPSuccess then
+          when Net::HTTPSuccess
             true
-          when Net::HTTPNotFound then
+          when Net::HTTPNotFound
             false
           else
             response.error!

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "blobby/filesystem_store"
 require "blobby/http_store"
 require "blobby/in_memory_store"
@@ -20,6 +22,7 @@ module Blobby
       uri = URI(uri)
       factory = store_factories[uri.scheme]
       fail ArgumentError, "unknown store type: #{uri}" if factory.nil?
+
       factory.from_uri(uri)
     end
 

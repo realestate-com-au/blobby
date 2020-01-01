@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 require "blobby/filesystem_store"
@@ -7,7 +9,7 @@ require "tmpdir"
 
 describe Blobby::KeyTransformingStore do
 
-  let(:memory) { Hash.new }
+  let(:memory) { {} }
 
   subject do
     described_class.new(Blobby::InMemoryStore.new(memory)) { |key| key }

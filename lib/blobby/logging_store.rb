@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Blobby
 
   # A store decorator that logs writes and deletes

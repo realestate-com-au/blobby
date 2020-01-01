@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "blobby/key_constraint"
 
 module Blobby

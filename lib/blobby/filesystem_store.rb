@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "blobby/key_constraint"
 require "fileutils"
 require "forwardable"
@@ -106,16 +108,16 @@ module Blobby
 
         tmp = nil
         begin
-          tmp = tmp_path.open(File::CREAT | File::EXCL | File::WRONLY, 0666)
+          tmp = tmp_path.open(File::CREAT | File::EXCL | File::WRONLY, 0o666)
           tmp.binmode
         rescue Errno::ENOENT
-          FileUtils.mkdir_p(store_dir.to_s, :mode => apply_umask(0777))
+          FileUtils.mkdir_p(store_dir.to_s, :mode => apply_umask(0o777))
           retry
         end
 
         begin
           yield tmp
-          tmp.chmod(apply_umask(0666)) unless using_default_umask?
+          tmp.chmod(apply_umask(0o666)) unless using_default_umask?
         ensure
           tmp.close
         end
@@ -125,6 +127,7 @@ module Blobby
           tmp_path.rename(store_path)
         rescue Errno::ESTALE
           raise unless first_try
+
           first_try = false
           now = Time.now
           File.utime(now, now, store_dir.to_s)

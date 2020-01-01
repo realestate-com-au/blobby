@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 require "ostruct"
@@ -10,7 +12,7 @@ require "sham_rack"
 describe Blobby::HttpStore do
 
   let(:backing_store) do
-    Hash.new
+    {}
   end
 
   class FakeStorageService < Sinatra::Base
