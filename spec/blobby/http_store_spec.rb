@@ -58,7 +58,7 @@ describe Blobby::HttpStore do
   let(:http_storage_host) { "storeit.com" }
 
   before do
-    ShamRack.mount(fake_storage_service, http_storage_host)
+    ShamRack.at(http_storage_host).mount(fake_storage_service)
   end
 
   after do

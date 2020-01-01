@@ -7,4 +7,4 @@ gemspec
 gem "rake", "~> 13.0"
 gem "rspec", "~> 3.9"
 gem "sinatra"
-gem "sham_rack", "~> 1.3.5"
+gem "sham_rack", "~> 1.4.1"
