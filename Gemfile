@@ -4,7 +4,7 @@ source "https://rubygems.org"
 gemspec
 
 # Development/test dependencies below
-gem "rake", "~> 10.0"
-gem "rspec", "~> 3.1"
+gem "rake", "~> 13.0"
+gem "rspec", "~> 3.9"
 gem "sinatra"
 gem "sham_rack", "~> 1.3.5"
