@@ -25,6 +25,7 @@ module Blobby
       StoredObject.new(@hash, key)
     end
 
+    # Represents an object in the store.
     class StoredObject
 
       def initialize(hash, key)

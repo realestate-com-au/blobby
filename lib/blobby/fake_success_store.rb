@@ -17,6 +17,7 @@ module Blobby
       StoredObject.new
     end
 
+    # Handle to an object in the store.
     class StoredObject
 
       def exists?

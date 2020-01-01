@@ -1,11 +1,6 @@
 AllCops:
   TargetRubyVersion: 2.4
 
-Eval:
-  Exclude:
-    - "Rakefile"
-    - "**/version.rb"
-
 Layout/EmptyLinesAroundBlockBody:
   Enabled: false
 
@@ -21,8 +16,16 @@ Layout/LineLength:
 Metrics/AbcSize:
   Enabled: false
 
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
+
 Metrics/MethodLength:
   Max: 30
+
+Naming/FileName:
+  Exclude:
+    - "bin/*"
 
 Style/ClassAndModuleChildren:
   EnforcedStyle: nested
@@ -33,9 +36,8 @@ Style/Documentation:
   Exclude:
     - "spec/**/*"
 
-Naming/FileName:
-  Exclude:
-    - "bin/*"
+Style/FormatStringToken:
+  Enabled: false
 
 Style/HashSyntax:
   EnforcedStyle: hash_rockets

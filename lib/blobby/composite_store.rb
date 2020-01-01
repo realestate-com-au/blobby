@@ -26,6 +26,7 @@ module Blobby
 
     attr_reader :stores
 
+    # Represents an object in the store.
     class StoredObject
 
       def initialize(objects)

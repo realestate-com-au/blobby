@@ -42,6 +42,7 @@ module Blobby
       ->(key) { key }
     end
 
+    # Represents an object in the store.
     class StoredObject
 
       def initialize(path, umask)

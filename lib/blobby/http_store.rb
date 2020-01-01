@@ -55,12 +55,13 @@ module Blobby
       [EOFError, Errno::ECONNRESET]
     end
 
-    def retry_intervals(n)
+    def retry_intervals(count)
       # exponential backoff: [0.5, 1, 2, 4, 8, ...]
       scaling_factor = (0.5 + Kernel.rand * 0.1) # a little random avoids throbbing
-      Array.new(n) { |i| (2**i) * scaling_factor }
+      Array.new(count) { |i| (2**i) * scaling_factor }
     end
 
+    # Represents an object in the store.
     class StoredObject
 
       def initialize(store, key)
@@ -87,9 +88,8 @@ module Blobby
               if block_given?
                 response.read_body(&block)
                 return nil
-              else
-                return response.read_body
               end
+              return response.read_body
             end
             response.error!
           end
